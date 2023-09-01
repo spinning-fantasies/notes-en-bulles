@@ -164,4 +164,5 @@ bin/
 include/
 lib/
 pyvenv.cfg
+*.db-journal
 *.db
