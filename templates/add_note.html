@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add a new note</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="container">
+                <!-- Brand/logo -->
+                <div class="navbar-brand">
+                </div>
+                
+                <!-- Navigation links -->
+                <div class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item" href="/">Retour à l'accueil</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <h1 class="title">Add a new note</h1>
+            <form method="POST" id="add_note_form">
+                <div class="field">
+                    <label class="label"> Created At</label>
+                    <div class="control">
+                        <input class="input" type="date" name="created_at" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                    <input class="input" name="title" required></input>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Content</label>
+                    <div class="control">
+                        <textarea class="textarea" type="text" name="content" required></textarea>
+                    </div>
+                </div>
+                <!-- Input field with tags -->
+                <div class="field">
+                    <label class="label">Tags</label>
+                    <div class="control">
+                        <div class="tags has-addons">
+                            <input class="input is-expanded" type="text" id="tags" name="categories" placeholder="Add tags">
+                            <a class="tag is-delete"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">Create</button>
+                    </div>
+                    <div class="control">
+                        <a class="button is-text" href="{{ url_for('index') }}">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tagsInput = document.getElementById("tags");
+            const tagsContainer = tagsInput.closest(".tags");
+            
+            tagsInput.addEventListener("keydown", function(event) {
+                if (event.key === "Enter" || event.key === ",") {
+                    event.preventDefault();
+                    const tagValue = tagsInput.value.trim();
+                    
+                    if (tagValue) {
+                        // Create a new tag element
+                        const tagElement = document.createElement("span");
+                        tagElement.classList.add("tag");
+                        tagElement.innerHTML = `
+                            ${tagValue}
+                            <button class="delete is-small"></button>
+                        `;
+                        
+                        // Add the tag element to the container
+                        tagsContainer.insertBefore(tagElement, tagsInput);
+                        
+                        // Clear the input field
+                        tagsInput.value = "";
+                    }
+                }
+            });
+            
+            tagsContainer.addEventListener("click", function(event) {
+                if (event.target.classList.contains("delete")) {
+                    event.target.closest(".tag").remove();
+                }
+            });
+        });
+    </script>
+
+
+</body>
+</html>

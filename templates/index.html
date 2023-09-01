@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <!-- Link to the Bulma CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Add your custom CSS styles here -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Home</h1>
+            </div>
+        </div>
+    </header>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <!-- Brand/logo -->
+            <div class="navbar-brand">
+                <a class="button is-default navbar-item" href="/add_note">Add a note</a>
+            </div>
+            
+            <!-- Navigation links -->
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item" href="/categories">Categories</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section">
+        <div class="container">
+            <section>
+                <h2 class="title is-4">Your notes</h2>
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Created at</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for note in notes %}
+                            <tr>
+                                <td>{{ note[1] }}</td>
+                                <td>{{ note[2] }}</td>
+                                <td>{{ note[3] }}</td>
+                                <td>
+                                    <a href="/delete_note/{{ note[0] }}" class="button is-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+
+</body>
+</html>
